@@ -4,6 +4,7 @@ import dev.gustavvocruzz.walletX.entity.User;
 import dev.gustavvocruzz.walletX.repositories.UserRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -13,6 +14,7 @@ public class UserService {
 
     private final UserRepository repository;
     private final WalletService walletService;
+    private final PasswordEncoder passwordEncoder;
 
 
     //TODO: CRIAR USER
@@ -24,8 +26,7 @@ public class UserService {
 
         validateUser(user);
 
-        //TODO: Criptografar senha
-
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
 
         User savedUser = repository.save(user);
 
