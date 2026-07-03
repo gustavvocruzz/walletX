@@ -1,7 +1,8 @@
-package dev.gustavvocruzz.walletX.entity.dtos.response;
+package dev.gustavvocruzz.walletX.dtos.response;
 
 import dev.gustavvocruzz.walletX.entity.UserStatus;
 
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 public record UserResponse(
@@ -11,5 +12,7 @@ public record UserResponse(
         String email,
         String phone,
         String document,
-        UserStatus status
+        UserStatus status,
+        UUID walletId,
+        LocalDateTime createdAt
 ) {}

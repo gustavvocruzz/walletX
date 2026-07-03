@@ -1,4 +1,4 @@
-package dev.gustavvocruzz.walletX.entity.dtos.request;
+package dev.gustavvocruzz.walletX.dtos.request;
 import java.time.LocalDate;
 
 public record UserRequest(
