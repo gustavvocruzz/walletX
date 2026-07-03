@@ -25,8 +25,9 @@ public class Wallet {
     @Column(name = "blocked_balance", nullable = false, precision = 19, scale = 2)
     private BigDecimal blockedBalance = BigDecimal.ZERO;
 
+    @Enumerated(EnumType.STRING)
     @Column(nullable = false, length = 3)
-    private String currency = "BRL";
+    private Currency currency;
 
     @OneToOne
     @JoinColumn(name = "user_id", unique = true, nullable = false)
