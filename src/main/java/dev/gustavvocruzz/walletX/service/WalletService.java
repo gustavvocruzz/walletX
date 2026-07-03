@@ -1,5 +1,6 @@
 package dev.gustavvocruzz.walletX.service;
 
+import dev.gustavvocruzz.walletX.entity.Currency;
 import dev.gustavvocruzz.walletX.entity.User;
 import dev.gustavvocruzz.walletX.entity.Wallet;
 import dev.gustavvocruzz.walletX.repositories.WalletRepository;
@@ -20,7 +21,7 @@ public class WalletService {
                 .user(user)
                 .balance(BigDecimal.ZERO)
                 .blockedBalance(BigDecimal.ZERO)
-                .currency("BRL")
+                .currency(Currency.BRL)
                 .build();
 
         user.setWallet(wallet);
