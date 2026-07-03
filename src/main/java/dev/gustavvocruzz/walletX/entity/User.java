@@ -26,8 +26,8 @@ public class User {
     @Column(name = "last_name",nullable = false)
     private String lastName;
 
-    @Column(length = 1)
-    private String gender;
+    @Column(length = 1, columnDefinition = "varchar(1)",nullable = false)
+    private Gender gender;
 
     @Column(nullable = false, unique = true)
     private String email;
@@ -40,7 +40,7 @@ public class User {
     @Column(nullable = false, unique = true)
     private String phone;
 
-    @Column(nullable = false, unique = true)
+    @Column(length = 14, nullable = false, unique = true)
     private String document;
 
     @Enumerated(EnumType.STRING)

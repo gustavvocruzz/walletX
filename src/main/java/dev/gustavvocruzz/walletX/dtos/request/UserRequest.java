@@ -1,4 +1,5 @@
 package dev.gustavvocruzz.walletX.dtos.request;
+import dev.gustavvocruzz.walletX.entity.Gender;
 import jakarta.validation.constraints.*;
 
 import java.time.LocalDate;
@@ -17,7 +18,7 @@ public record UserRequest(
 
         @Pattern(regexp = "M|F", message = "Gender must be M or F")
         @Size(max = 1, message = "Gender must contain only one character")
-        String gender,
+        Gender gender,
 
         @NotBlank(message = "Email is required")
         @Email(message = "Invalid email format")
@@ -37,6 +38,6 @@ public record UserRequest(
 
 
         @NotBlank(message = "Document is required")
-        @Size(max = 30, message = "Document must be at most 30 characters")
+        @Size(max = 14, message = "Document must be at most 14 characters")
         String document
 ) {}
