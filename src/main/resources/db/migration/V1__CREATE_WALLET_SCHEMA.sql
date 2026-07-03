@@ -7,7 +7,7 @@ CREATE table users(
     birthday date,
     password VARCHAR(255) NOT NULL,
     phone VARCHAR(30) NOT NULL UNIQUE ,
-    document CHAR(14) NOT NULL UNIQUE,
+    document VARCHAR(14) NOT NULL UNIQUE,
     status VARCHAR(20) NOT NULL DEFAULT 'ACTIVE' CHECK (status IN ('ACTIVE', 'BLOCKED', 'PENDING_VERIFICATION')),
     created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP
@@ -18,7 +18,7 @@ CREATE table wallets(
     user_id UUID NOT NULL UNIQUE references users(id) ON DELETE CASCADE,
     balance NUMERIC(19,2) NOT NULL DEFAULT 0.00,
     blocked_balance NUMERIC(19,2) NOT NULL DEFAULT 0.00,
-    currency CHAR(3) NOT NULL DEFAULT 'BRL' CHECK (currency IN ('BRL','USD','EUR')),
+    currency VARCHAR(3) NOT NULL DEFAULT 'BRL' CHECK (currency IN ('BRL','USD','EUR')),
     created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP
 );
