@@ -14,10 +14,8 @@ public record UserRequest(
         String lastName,
 
 
-        //o recomendado é usar um ENUM aqui no genero
 
-        @Pattern(regexp = "M|F", message = "Gender must be M or F")
-        @Size(max = 1, message = "Gender must contain only one character")
+        @NotNull(message = "Gender must contain only one character")
         Gender gender,
 
         @NotBlank(message = "Email is required")
