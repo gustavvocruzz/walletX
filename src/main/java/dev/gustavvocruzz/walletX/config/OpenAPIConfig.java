@@ -22,18 +22,12 @@ public class OpenAPIConfig {
                         .version("0.0.1-SNAPSHOT")
                         .contact(new Contact()
                                 .name("Gustavo Cruz")
-                                .email("contact@gustavvocruzz.dev")
-                                .url("https://github.com/gustavvocruzz/walletX"))
-                        .license(new License()
-                                .name("Apache 2.0")
-                                .url("https://www.apache.org/licenses/LICENSE-2.0.html")))
+                                .email("gusta.gustavocruz@gmail.com")
+                                .url("https://github.com/gustavvocruzz/walletX")))
                 .servers(List.of(
                         new Server()
                                 .url("http://localhost:8080")
-                                .description("Development Server"),
-                        new Server()
-                                .url("https://api.walletx.com")
-                                .description("Production Server")
+                                .description("Development Server")
                 ));
     }
 }
