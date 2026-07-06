@@ -10,8 +10,6 @@
 
 A modern, production-ready digital wallet management system API built with Spring Boot and fully documented with Swagger/OpenAPI 3.0.
 
-[Features](#features) • [Quick Start](#quick-start) • [API Documentation](#api-documentation) • [Tech Stack](#tech-stack) • [Contributing](#contributing)
-
 </div>
 
 ---
