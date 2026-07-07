@@ -1,7 +1,9 @@
 package dev.gustavvocruzz.walletX.service;
 
+import dev.gustavvocruzz.walletX.dtos.request.UserUpdateRequest;
 import dev.gustavvocruzz.walletX.entity.User;
 import dev.gustavvocruzz.walletX.exceptions.UserNotFoundException;
+import dev.gustavvocruzz.walletX.mapper.UserMapper;
 import dev.gustavvocruzz.walletX.repositories.UserRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
@@ -19,6 +21,7 @@ public class UserService {
     private final UserRepository repository;
     private final WalletService walletService;
     private final PasswordEncoder passwordEncoder;
+    private final UserMapper userMapper;
 
 
     //TODO: ATUALIZAR USER
@@ -63,6 +66,27 @@ public class UserService {
     public User getUserById(UUID id){
         return repository.findById(id)
                 .orElseThrow(()-> new UserNotFoundException(id));
+    }
+
+    public User updateUser(UUID id, UserUpdateRequest request) {
+        User user = repository.findById(id).orElseThrow(() -> new UserNotFoundException(id));
+        userMapper.updateEntity(user,request);
+
+        validateUpdate(user,id);
+
+        return repository.save(user);
+
+    }
+
+    private void validateUpdate(User user, UUID id) {
+
+        if (repository.existsByEmailAndIdNot(user.getEmail(), id)) {
+            throw new RuntimeException("There is already a user with this email.");
+        }
+
+        if (repository.existsByPhoneAndIdNot(user.getPhone(), id)) {
+            throw new RuntimeException("There is already a user with this phone.");
+        }
     }
 
 
