@@ -1,6 +1,7 @@
 package dev.gustavvocruzz.walletX.controller;
 
 import dev.gustavvocruzz.walletX.dtos.request.UserRequest;
+import dev.gustavvocruzz.walletX.dtos.request.UserUpdateRequest;
 import dev.gustavvocruzz.walletX.dtos.response.UserResponse;
 import dev.gustavvocruzz.walletX.entity.User;
 import dev.gustavvocruzz.walletX.mapper.UserMapper;
@@ -70,5 +71,11 @@ public class UserController {
             @PathVariable("id") UUID uuid){
         var user = userService.getUserById(uuid);
         return mapper.toResponse(user);
+    }
+
+    @PutMapping("/{id}")
+    public UserResponse updateUser(@PathVariable UUID id, @RequestBody @Valid UserUpdateRequest userRequest){
+        User userUpdate = userService.updateUser(id,userRequest);
+        return mapper.toResponse(userUpdate);
     }
 }
