@@ -1,6 +1,7 @@
 package dev.gustavvocruzz.walletX.mapper;
 
 import dev.gustavvocruzz.walletX.dtos.request.UserRequest;
+import dev.gustavvocruzz.walletX.dtos.request.UserUpdateRequest;
 import dev.gustavvocruzz.walletX.dtos.response.UserResponse;
 import dev.gustavvocruzz.walletX.entity.User;
 import org.springframework.stereotype.Component;
@@ -39,5 +40,13 @@ public class UserMapper {
                 user.getCreatedAt()
         );
 
+    }
+
+    public void updateEntity(User user, UserUpdateRequest request) {
+        user.setFirstName(request.firstName());
+        user.setLastName(request.lastName());
+        user.setGender(request.gender());
+        user.setBirthday(request.birthday());
+        user.setPhone(request.phone());
     }
 }
