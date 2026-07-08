@@ -75,6 +75,11 @@ public class Wallet {
         this.walletStatus = WalletStatus.BLOCKED;
     }
 
+
+    public void activate() {
+        this.walletStatus = WalletStatus.ACTIVE;
+    }
+
     //TODO CREATE METHOD SET STATUS
 
 }
