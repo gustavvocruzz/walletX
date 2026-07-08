@@ -3,6 +3,7 @@ package dev.gustavvocruzz.walletX.service;
 import dev.gustavvocruzz.walletX.entity.Currency;
 import dev.gustavvocruzz.walletX.entity.User;
 import dev.gustavvocruzz.walletX.entity.Wallet;
+import dev.gustavvocruzz.walletX.entity.WalletStatus;
 import dev.gustavvocruzz.walletX.exceptions.WalletNotFoundException;
 import dev.gustavvocruzz.walletX.repositories.WalletRepository;
 import lombok.RequiredArgsConstructor;
@@ -40,4 +41,13 @@ public class WalletService {
         return repository.findById(id)
                 .orElseThrow(() -> new WalletNotFoundException(id));
     }
+
+    public Wallet getWalletByUserId(UUID userId){
+        return repository.findByUserId(userId)
+                .orElseThrow(()->new WalletNotFoundException(
+                        "Wallet for user ID: " + userId +" was not found.")
+                );
+    }
+
+
 }
