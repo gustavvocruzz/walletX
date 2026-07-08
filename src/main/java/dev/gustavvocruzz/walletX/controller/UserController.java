@@ -78,4 +78,10 @@ public class UserController {
         User userUpdate = userService.updateUser(id,userRequest);
         return mapper.toResponse(userUpdate);
     }
+
+    @PatchMapping("/deactivate/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deactivateUser(@PathVariable UUID id) {
+        userService.deactivateUser(id);
+    }
 }
