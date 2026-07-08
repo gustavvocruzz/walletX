@@ -29,6 +29,10 @@ public class Wallet {
     @Column(nullable = false, length = 3)
     private Currency currency;
 
+    @Enumerated(EnumType.STRING)
+    @Column(name = "wallet_status", nullable = false)
+    private WalletStatus walletStatus = WalletStatus.ACTIVE;
+
     @OneToOne
     @JoinColumn(name = "user_id", unique = true, nullable = false)
     private User user;
@@ -60,5 +64,7 @@ public class Wallet {
         }
         this.balance = this.balance.subtract(amount);
     }
+
+    //TODO CREATE METHOD SET STATUS
 
 }
