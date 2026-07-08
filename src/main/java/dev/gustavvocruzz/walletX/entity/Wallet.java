@@ -20,9 +20,11 @@ public class Wallet {
     private UUID id;
 
     @Column(nullable = false, precision = 19, scale = 2)
+    @Builder.Default
     private BigDecimal balance = BigDecimal.ZERO;
 
     @Column(name = "blocked_balance", nullable = false, precision = 19, scale = 2)
+    @Builder.Default
     private BigDecimal blockedBalance = BigDecimal.ZERO;
 
     @Enumerated(EnumType.STRING)
@@ -31,6 +33,7 @@ public class Wallet {
 
     @Enumerated(EnumType.STRING)
     @Column(name = "wallet_status", nullable = false)
+    @Builder.Default
     private WalletStatus walletStatus = WalletStatus.ACTIVE;
 
     @OneToOne
