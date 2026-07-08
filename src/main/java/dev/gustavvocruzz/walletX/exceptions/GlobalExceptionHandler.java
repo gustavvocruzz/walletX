@@ -64,4 +64,22 @@ public class GlobalExceptionHandler {
     return ResponseEntity.badRequest().body(error);
   }
 
+  @ExceptionHandler(WalletNotFoundException.class)
+  public ResponseEntity<ErrorResponse> handleWalletNotFound(
+          WalletNotFoundException ex,
+          HttpServletRequest request) {
+
+    ErrorResponse error = new ErrorResponse(
+            LocalDateTime.now(),
+            HttpStatus.NOT_FOUND.value(),
+            HttpStatus.NOT_FOUND.getReasonPhrase(),
+            ex.getMessage(),
+            request.getRequestURI()
+    );
+
+    return ResponseEntity.status(HttpStatus.NOT_FOUND).body(error);
+  }
+
+  //TODO: tratar as exceções no mesmo handler, ex: handleNotFound
+
 }
