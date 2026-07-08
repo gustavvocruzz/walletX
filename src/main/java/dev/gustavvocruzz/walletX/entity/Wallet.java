@@ -65,6 +65,13 @@ public class Wallet {
         this.balance = this.balance.subtract(amount);
     }
 
+    public void block(){
+        if(this.walletStatus == WalletStatus.BLOCKED){
+            throw new IllegalStateException("Wallet already blocked");
+        }
+        this.walletStatus = WalletStatus.BLOCKED;
+    }
+
     //TODO CREATE METHOD SET STATUS
 
 }
