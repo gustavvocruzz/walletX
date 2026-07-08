@@ -2,6 +2,7 @@ package dev.gustavvocruzz.walletX.service;
 
 import dev.gustavvocruzz.walletX.dtos.request.UserUpdateRequest;
 import dev.gustavvocruzz.walletX.entity.User;
+import dev.gustavvocruzz.walletX.entity.UserStatus;
 import dev.gustavvocruzz.walletX.exceptions.UserNotFoundException;
 import dev.gustavvocruzz.walletX.mapper.UserMapper;
 import dev.gustavvocruzz.walletX.repositories.UserRepository;
@@ -87,6 +88,12 @@ public class UserService {
         if (repository.existsByPhoneAndIdNot(user.getPhone(), id)) {
             throw new RuntimeException("There is already a user with this phone.");
         }
+    }
+
+    public void deactivateUser(UUID uuid){
+        var user = getUserById(uuid);
+        user.setStatus(UserStatus.INACTIVE);
+        repository.save(user);
     }
 
 
