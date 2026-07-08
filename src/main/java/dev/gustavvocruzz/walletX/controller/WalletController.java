@@ -34,5 +34,10 @@ public class WalletController {
         return walletMapper.toResponse(wallet);
     }
 
-    @PatchMapping()
+    @GetMapping("/user/{userId}")
+    public WalletResponse getWalletByUserId(UUID userId){
+        var wallet = walletService.getWalletByUserId(userId);
+        return walletMapper.toResponse(wallet);
+    }
+
 }
