@@ -26,6 +26,7 @@ public class WalletService {
                 .balance(BigDecimal.ZERO)
                 .blockedBalance(BigDecimal.ZERO)
                 .currency(Currency.BRL)
+                .walletStatus(WalletStatus.ACTIVE)
                 .build();
 
         user.setWallet(wallet);
@@ -48,6 +49,7 @@ public class WalletService {
                         "Wallet for user ID: " + userId +" was not found.")
                 );
     }
+
 
 
 }
