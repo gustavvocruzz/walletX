@@ -3,11 +3,14 @@ package dev.gustavvocruzz.walletX.service;
 import dev.gustavvocruzz.walletX.entity.Currency;
 import dev.gustavvocruzz.walletX.entity.User;
 import dev.gustavvocruzz.walletX.entity.Wallet;
+import dev.gustavvocruzz.walletX.exceptions.WalletNotFoundException;
 import dev.gustavvocruzz.walletX.repositories.WalletRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
+import java.util.List;
+import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
@@ -27,5 +30,14 @@ public class WalletService {
         user.setWallet(wallet);
 
         return repository.save(wallet);
+    }
+
+    public List<Wallet> getAllWallets(){
+        return repository.findAll();
+    }
+
+    public Wallet getWalletById(UUID id){
+        return repository.findById(id)
+                .orElseThrow(() -> new WalletNotFoundException(id));
     }
 }
