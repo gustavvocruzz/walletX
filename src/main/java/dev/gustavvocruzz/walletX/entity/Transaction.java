@@ -10,6 +10,7 @@ import java.util.UUID;
 @Entity
 @Table(name = "transactions")
 @Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
