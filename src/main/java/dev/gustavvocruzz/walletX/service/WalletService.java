@@ -50,6 +50,22 @@ public class WalletService {
                 );
     }
 
+    public Wallet blockWalletById(UUID id){
+        var wallet = repository.findById(id)
+                .orElseThrow(()-> new WalletNotFoundException(id));
+        wallet.block();
+       return repository.save(wallet);
 
+    }
+
+    public Wallet blockWalletByUserId(UUID userId){
+        var wallet = repository.findByUserId(userId)
+                .orElseThrow(()->new WalletNotFoundException(
+                        "Wallet for user ID: "+ userId +" was not found."
+                ));
+        wallet.block();
+        return repository.save(wallet);
+
+    }
 
 }
