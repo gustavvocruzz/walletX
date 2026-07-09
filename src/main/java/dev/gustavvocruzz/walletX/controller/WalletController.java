@@ -40,4 +40,19 @@ public class WalletController {
         return walletMapper.toResponse(wallet);
     }
 
+
+    @PatchMapping("/{id}/block")
+    public WalletResponse blockWalletById(@PathVariable UUID id){
+     var wallet=walletService.blockWalletById(id);
+     return walletMapper.toResponse(wallet);
+    }
+
+    @PatchMapping("user/{id}/block")
+    public WalletResponse blockWalletByUserId(@PathVariable UUID id){
+
+        var wallet = walletService.blockWalletByUserId(id);
+
+        return walletMapper.toResponse(wallet);
+    }
+
 }
