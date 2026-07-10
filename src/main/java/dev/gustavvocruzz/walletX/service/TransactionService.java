@@ -47,6 +47,7 @@ public class TransactionService {
 
            walletRepository.save(sender);
            walletRepository.save(receiver);
+           return repository.save(transaction);
        } catch (RuntimeException ex) {
            transaction.setStatus(TransactionStatus.FAILED);
            auditService.persistFailedTransaction(transaction); //transação separada por conta do ROLLBACK
