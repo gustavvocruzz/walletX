@@ -5,10 +5,7 @@ import dev.gustavvocruzz.walletX.entity.Transaction;
 import dev.gustavvocruzz.walletX.entity.TransactionStatus;
 import dev.gustavvocruzz.walletX.entity.Wallet;
 import dev.gustavvocruzz.walletX.entity.WalletStatus;
-import dev.gustavvocruzz.walletX.exceptions.InsufficientBalanceException;
-import dev.gustavvocruzz.walletX.exceptions.SameWalletTransferException;
-import dev.gustavvocruzz.walletX.exceptions.WalletBlockedException;
-import dev.gustavvocruzz.walletX.exceptions.WalletNotFoundException;
+import dev.gustavvocruzz.walletX.exceptions.*;
 import dev.gustavvocruzz.walletX.mapper.TransactionMapper;
 import dev.gustavvocruzz.walletX.repositories.TransactionRepository;
 import dev.gustavvocruzz.walletX.repositories.WalletRepository;
@@ -17,6 +14,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
+import java.util.List;
+import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
@@ -25,6 +24,7 @@ public class TransactionService {
     private final TransactionMapper mapper;
     private final WalletRepository walletRepository;
     private final TransactionAuditService auditService;
+    private final WalletService walletService;
 
 
     @Transactional
@@ -53,7 +53,6 @@ public class TransactionService {
            auditService.persistFailedTransaction(transaction); //transação separada por conta do ROLLBACK
            throw ex;
        }
-        return repository.save(transaction);
 
     }
 
@@ -74,5 +73,26 @@ public class TransactionService {
             throw new WalletBlockedException("The receiver wallet is blocked.");
         }
     }
+
+    //Get
+    public List<Transaction> getAllTransactions(){
+        return repository.findAll();
+    }
+
+    public Transaction getTransactionById(UUID uuid){
+        return repository.findById(uuid)
+                .orElseThrow(()-> new TransactionNotFoundException(uuid));
+    }
+
+    public List<Transaction> getTransactionsByWalletId(UUID id){
+       walletService.getWalletById(id);
+        return repository.findAllByWalletId(id);
+    }
+
+    public List<Transaction> getTransactionsByUserId(UUID id){
+            var wallet = walletService.getWalletByUserId(id);
+            return repository.findAllByWalletId(wallet.getId());
+    }
+
 
 }
