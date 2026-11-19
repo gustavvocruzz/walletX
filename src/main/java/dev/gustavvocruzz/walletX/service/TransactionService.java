@@ -58,6 +58,10 @@ public class TransactionService {
 
     public void validateTransfer(Wallet sender, Wallet receiver, BigDecimal amount){
 
+        if (amount == null || amount.compareTo(BigDecimal.ZERO) <= 0) {
+            throw new InvalidTransferAmountException("Transfer amount must be positive.");
+        }
+
         if (sender.getId().equals(receiver.getId())) {
             throw new SameWalletTransferException("Cannot transfer funds to the same wallet.");
         }
@@ -72,6 +76,7 @@ public class TransactionService {
         if(receiver.getWalletStatus() == WalletStatus.BLOCKED){
             throw new WalletBlockedException("The receiver wallet is blocked.");
         }
+
     }
 
     //Get
