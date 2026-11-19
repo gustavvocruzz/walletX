@@ -1,6 +1,8 @@
 package dev.gustavvocruzz.walletX.repositories;
 
 import dev.gustavvocruzz.walletX.entity.Transaction;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
@@ -15,5 +17,5 @@ public interface TransactionRepository extends JpaRepository<Transaction, UUID> 
        OR t.receiverWallet.id = :walletId
     ORDER BY t.createdAt DESC
 """)
-    List<Transaction> findAllByWalletId(UUID walletId);
+    Page<Transaction> findAllByWalletId(UUID walletId, Pageable pageable);
 }

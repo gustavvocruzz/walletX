@@ -10,11 +10,12 @@ import dev.gustavvocruzz.walletX.mapper.TransactionMapper;
 import dev.gustavvocruzz.walletX.repositories.TransactionRepository;
 import dev.gustavvocruzz.walletX.repositories.WalletRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
-import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -80,8 +81,8 @@ public class TransactionService {
     }
 
     //Get
-    public List<Transaction> getAllTransactions(){
-        return repository.findAll();
+    public Page<Transaction> getAllTransactions(Pageable pageable){
+        return repository.findAll(pageable);
     }
 
     public Transaction getTransactionById(UUID uuid){
@@ -89,14 +90,14 @@ public class TransactionService {
                 .orElseThrow(()-> new TransactionNotFoundException(uuid));
     }
 
-    public List<Transaction> getTransactionsByWalletId(UUID id){
+    public Page<Transaction> getTransactionsByWalletId(UUID id, Pageable pageable){
        walletService.getWalletById(id);
-        return repository.findAllByWalletId(id);
+        return repository.findAllByWalletId(id,pageable);
     }
 
-    public List<Transaction> getTransactionsByUserId(UUID id){
+    public Page<Transaction> getTransactionsByUserId(UUID id, Pageable pageable){
             var wallet = walletService.getWalletByUserId(id);
-            return repository.findAllByWalletId(wallet.getId());
+            return repository.findAllByWalletId(wallet.getId(), pageable);
     }
 
 

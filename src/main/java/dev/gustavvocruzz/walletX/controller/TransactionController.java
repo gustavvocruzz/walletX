@@ -6,9 +6,10 @@ import dev.gustavvocruzz.walletX.mapper.TransactionMapper;
 import dev.gustavvocruzz.walletX.service.TransactionService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 import java.util.UUID;
 
 @RestController
@@ -20,11 +21,9 @@ public class TransactionController {
     private final TransactionService transactionService;
 
     @GetMapping
-    public List<TransactionResponse> getAllTransactions(){
-        return transactionService.getAllTransactions()
-                .stream()
-                .map(mapper::toResponse)
-                .toList();
+    public Page<TransactionResponse> getAllTransactions(Pageable pageable){
+        return transactionService.getAllTransactions(pageable)
+                .map(mapper::toResponse);
     }
 
     @GetMapping("/{id}")
@@ -34,20 +33,15 @@ public class TransactionController {
     }
 
     @GetMapping("/wallet/{walletId}")
-    public List<TransactionResponse> getTransactionsByWalletId(@PathVariable UUID walletId){
-        return transactionService.getTransactionsByWalletId(walletId)
-                .stream()
-                .map(mapper::toResponse)
-                .toList();
+    public Page<TransactionResponse> getTransactionsByWalletId(Pageable pageable, @PathVariable UUID walletId){
+        return transactionService.getTransactionsByWalletId(walletId, pageable)
+                .map(mapper::toResponse);
     }
 
-
     @GetMapping("/user/{userId}")
-    public List<TransactionResponse> getTransactionsByUserId(@PathVariable UUID userId){
-        return transactionService.getTransactionsByUserId(userId)
-                .stream()
-                .map(mapper::toResponse)
-                .toList();
+    public Page<TransactionResponse> getTransactionsByUserId(Pageable pageable, @PathVariable UUID userId) {
+        return transactionService.getTransactionsByUserId(userId, pageable)
+                .map(mapper::toResponse);
     }
 
     @PostMapping
